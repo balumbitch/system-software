@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  products-service:
+    image: python:3.9-slim
+    container_name: products-service-s22
+    command: python -m http.server 8143
+    ports:
+      - "8143:8143"
+    networks:
+      - microservices-net
+
+  other-service:
+    image: python:3.9-slim
+    container_name: other-service-s22
+    command: python -m http.server 8144
+    ports:
+      - "8144:8144"
+    networks:
+      - microservices-net
+
+  nginx-gateway:
+    image: nginx:latest
+    container_name: api-gateway-s22
+    ports:
+      - "8080:80"
+    volumes:
+      - ./infra/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - microservices-net
+    depends_on:
+      - products-service
+      - other-service
+
+networks:
+  microservices-net:
+    driver: bridge

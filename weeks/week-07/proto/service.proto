@@ -1,16 +1,24 @@
 syntax = "proto3";
 
-// Опишите ваш пакет и сервис здесь
-// package example;
+package products.v1;
 
-// service MyService {
-//   rpc MyMethod (MyRequest) returns (MyResponse);
-// }
+service ProductsService {
+  rpc GetProduct (GetProductRequest) returns (Product);
+  rpc ListProducts (ListProductsRequest) returns (ListProductsResponse);
+}
 
-// message MyRequest {
-//   string id = 1;
-// }
+message GetProductRequest {
+  int32 id = 1;
+}
 
-// message MyResponse {
-//   string result = 1;
-// }
+message ListProductsRequest {}
+
+message Product {
+  int32 id = 1;
+  string name = 2;
+  double price = 3;
+}
+
+message ListProductsResponse {
+  repeated Product products = 1;
+}

@@ -1,3 +1,7 @@
-# Checklist
+# Security checklist
 
-В этом документе вам необходимо заполнить чек-лист.
+- [ ] TLS на ingress
+- [ ] Секреты в Kubernetes Secrets
+- [ ] Обновления базового образа
+- [ ] Rate limiting на API gateway
+- [ ] Аудит логов без чувствительных данных

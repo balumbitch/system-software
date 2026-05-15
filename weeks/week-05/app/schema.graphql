@@ -1,1 +1,13 @@
-# В этом месте вам необходимо: опишите GraphQL схему
+type Notification {
+  id: ID!
+  name: String!
+  channel: String!
+}
+
+type Query {
+  notifications: [Notification!]!
+}
+
+type Mutation {
+  createNotification(name: String!, channel: String!): Notification!
+}

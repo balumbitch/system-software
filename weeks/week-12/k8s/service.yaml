@@ -1,1 +1,14 @@
-# В этом месте вам необходимо: Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: invoices-app
+  labels:
+    app: invoices-app
+spec:
+  type: ClusterIP
+  selector:
+    app: invoices-app
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP

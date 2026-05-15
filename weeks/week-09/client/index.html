@@ -1,2 +1,22 @@
 <!doctype html>
-<!-- В этом месте вам необходимо: реализуйте WebRTC клиент -->
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>sessions-s22 WebRTC</title>
+</head>
+<body>
+  <h1>sessions-s22 — WebRTC клиент</h1>
+  <video id="local" autoplay muted playsinline></video>
+  <script>
+    const pc = new RTCPeerConnection();
+    pc.onicecandidate = (e) => {
+      if (e.candidate) console.log('ICE', e.candidate);
+    };
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      .then((stream) => {
+        document.getElementById('local').srcObject = stream;
+        stream.getTracks().forEach((track) => pc.addTrack(track, stream));
+      });
+  </script>
+</body>
+</html>

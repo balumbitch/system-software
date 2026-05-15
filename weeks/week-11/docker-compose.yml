@@ -1,22 +1,27 @@
 version: '3.9'
+
 services:
-  app:
-    # Замените на имя образа
-    image: primer/obraz
+  users-svc-s22:
+    image: nginx:alpine
+    ports:
+      - "8240:80"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
       interval: 10s
       timeout: 3s
       retries: 3
     networks:
       - app-net
+
   gateway:
-    # Замените на имя образа
-    image: primer/obraz
+    image: nginx:alpine
+    ports:
+      - "8080:80"
     depends_on:
-      - app
+      - users-svc-s22
     networks:
       - app-net
+
 networks:
   app-net:
     driver: bridge
